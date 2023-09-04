@@ -14,7 +14,9 @@ const MatterJS = () => {
       Composite = Matter.Composite,
       Mouse = Matter.Mouse,
       MouseConstraint = Matter.MouseConstraint;
-
+    Event = Matter.Events;
+    console.log(Mouse);
+    console.log(MouseConstraint.mouse);
     // // create an engine
     let engine = Engine.create();
 
@@ -29,61 +31,180 @@ const MatterJS = () => {
       },
     });
 
-    // // create two boxes and a ground
-    let boxA = Bodies.circle(150, 50, 40, {
-      render: {
-        sprite: {
-          texture: "/outstanding.png",
-          xScale: 0.25,
-          yScale: 0.25,
+    let pill = Bodies.rectangle(450, 0, 180, 56, {
+      friction: 0.2,
+      frictionAir: 0.00001,
+      restitution: 0.8,
+      bounds: {
+        min: {
+          x: 10,
+          y: 10,
+        },
+        max: {
+          x: 10,
+          y: 10,
         },
       },
-    });
-    let boxB = Bodies.circle(350, 50, 40, {
       render: {
+        fillStyle: "transparent",
         sprite: {
-          texture: "/perfect.png",
-          xScale: 0.25,
-          yScale: 0.25,
-        },
-      },
-    });
-
-    let boxC = Bodies.rectangle(450, 50, 40, 40, {
-      render: {
-        sprite: {
-          texture: "/pill.png",
-          xScale: 0.25,
-          yScale: 0.25,
+          texture: "/pill-5.svg",
         },
       },
     });
 
-    let boxD = Bodies.circle(550, 50, 40, {
+    let pill1 = Bodies.rectangle(150, 50, 180, 56, {
+      friction: 0.2,
+      frictionAir: 0.00001,
+      restitution: 0.5,
+      bounds: {
+        min: {
+          x: 1,
+          y: 1,
+        },
+        max: {
+          x: 10,
+          y: 10,
+        },
+      },
       render: {
+        fillStyle: "transparent",
         sprite: {
-          texture: "/pill.png",
-          xScale: 0.25,
-          yScale: 0.25,
+          texture: "/pill-1.svg",
+        },
+      },
+    });
+    console.log(pill1);
+
+    const pill2 = Bodies.rectangle(550, 20, 250, 56, {
+      friction: 0.8,
+      frictionAir: 0.00001,
+      restitution: 0.9,
+      bounds: {
+        min: {
+          x: 1,
+          y: 1,
+        },
+        max: {
+          x: 10,
+          y: 10,
+        },
+      },
+      render: {
+        fillStyle: "transparent",
+        sprite: {
+          texture: "/pill-3.svg",
         },
       },
     });
 
-    let boxE = Bodies.circle(150, 50, 40, {
+    const pill3 = Bodies.rectangle(650, 120, 200, 56, {
+      friction: 0.2,
+      frictionAir: 0.00001,
+      restitution: 0.5,
+      bounds: {
+        min: {
+          x: 1,
+          y: 1,
+        },
+        max: {
+          x: 10,
+          y: 10,
+        },
+      },
+
       render: {
+        fillStyle: "transparent",
         sprite: {
-          texture: "/outstanding.png",
-          xScale: 0.25,
-          yScale: 0.25,
+          texture: "/pill-3.svg",
         },
       },
     });
-    let boxF = Bodies.circle(350, 50, 40, {
+    const pill4 = Bodies.rectangle(850, 100, 180, 56, {
+      friction: 0.2,
+      frictionAir: 0.00001,
+      restitution: 0.8,
+      bounds: {
+        min: {
+          x: 1,
+          y: 1,
+        },
+        max: {
+          x: 10,
+          y: 10,
+        },
+      },
+
       render: {
+        fillStyle: "transparent",
         sprite: {
-          texture: "/perfect.png",
-          xScale: 0.25,
-          yScale: 0.25,
+          texture: "/pill-4.svg",
+        },
+      },
+    });
+    const pill5 = Bodies.rectangle(180, 50, 0, 56, {
+      friction: 0.2,
+      frictionAir: 0.00001,
+      restitution: 0.5,
+      bounds: {
+        min: {
+          x: 1,
+          y: 1,
+        },
+        max: {
+          x: 10,
+          y: 10,
+        },
+      },
+
+      render: {
+        fillStyle: "transparent",
+        sprite: {
+          texture: "/pill-5.svg",
+        },
+      },
+    });
+    const pill6 = Bodies.rectangle(900, 65, 200, 56, {
+      friction: 0.2,
+      frictionAir: 0.00001,
+      restitution: 0.8,
+      bounds: {
+        min: {
+          x: 1,
+          y: 1,
+        },
+        max: {
+          x: 10,
+          y: 10,
+        },
+      },
+
+      render: {
+        fillStyle: "transparent",
+        sprite: {
+          texture: "/pill-6.svg",
+        },
+      },
+    });
+    const pill7 = Bodies.rectangle(750, 70, 200, 56, {
+      friction: 0.2,
+      frictionAir: 0.00001,
+      restitution: 0.8,
+      bounds: {
+        min: {
+          x: 1,
+          y: 1,
+        },
+        max: {
+          x: 10,
+          y: 10,
+        },
+      },
+
+      render: {
+        fillStyle: "transparent",
+        sprite: {
+          texture: "/pill-7.svg",
         },
       },
     });
@@ -119,12 +240,19 @@ const MatterJS = () => {
     );
     // add all of the bodies to the world
     Composite.add(engine.world, [
-      boxA,
-      boxB,
-      boxC,
-      boxD,
-      boxE,
-      boxF,
+      // boxB,
+      // boxC,
+      // boxD,
+      // boxE,
+      // boxF,
+      pill,
+      pill1,
+      pill2,
+      pill3,
+      pill4,
+      pill5,
+      pill6,
+      pill7,
       ground,
       wallLeft,
       wallRight,
@@ -152,11 +280,23 @@ const MatterJS = () => {
       },
     });
 
+    Event.on(mouseConstraint, "mousedown", function (event) {});
+
+    //a function which set mouse cursor to grab when the event function runs
+
     Composite.add(engine.world, mouseConstraint);
   }, []);
 
   console.log(Matter);
-  return <div ref={matterRef}></div>;
+  return (
+    <>
+      <div className="cursor-grab" ref={matterRef}>
+        <h1 className="absolute text-5xl font-bold cursor-default top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          Connect With Our Storytellers
+        </h1>
+      </div>
+    </>
+  );
 };
 
 export default MatterJS;
