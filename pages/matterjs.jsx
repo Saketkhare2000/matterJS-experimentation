@@ -282,7 +282,7 @@ const MatterJS = () => {
 
     Event.on(mouseConstraint, "mousedown", function (event) {});
 
-    //a function which set mouse cursor to grab when the event function runs
+    //a function which set mouse cursor usito grab when the event function runs
 
     Composite.add(engine.world, mouseConstraint);
   }, []);
