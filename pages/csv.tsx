@@ -36,7 +36,7 @@ const CSV = () => {
     //     console.log(arr);
     //   });
   };
-  console.log(CSVData.data[0]);
+
   return (
     <div>
       <CSVReader
