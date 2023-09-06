@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-
+import { db } from "../firebase";
 import { useCSVReader } from "react-papaparse";
+import { collection, doc, writeBatch } from "firebase/firestore";
+import { v4 as uuid4 } from "uuid";
 const CSV = () => {
   const { CSVReader } = useCSVReader();
   const [CSVData, setCSVData] = React.useState<any>([]);
@@ -23,18 +25,40 @@ const CSV = () => {
 
     setHeader(header);
     setFormattedData(formattedData);
+  };
+  for (let i = 1; i < CSVData?.data?.length; i++) {
+    // console.log(CSVData.data[i][2].split(" "));
+    const arr: any = [];
+    //filter which will check an empty array item
+    const employeeData = {
+      firstName: CSVData.data[i][0],
+      lastName: CSVData.data[i][1],
+      employeeSkills: CSVData.data[i][2],
+      residence: CSVData.data[i][3],
+    };
+    console.log(employeeData);
+  }
+  console.log(CSVData);
 
-    // formattedData &&
-    //   formattedData?.forEach((item: any) => {
-    //     item.employeeSkills = item?.employeeSkills?.split(" ");
-    //     //push to array
-    //     const arr: any = [];
-    //     item &&
-    //       item?.employeeSkills.forEach((skill: any) => {
-    //         arr.push({ skill });
-    //       });
-    //     console.log(arr);
-    //   });
+  let myuuid = uuid4();
+  //use ID rather than uuid so that it updates the item rather than creating a new one
+
+  const uploadData = (CSVData: any) => {
+    const batchData = writeBatch(db);
+    CSVData.data.slice(1).forEach((item: any) => {
+      const employeeData = {
+        firstName: item[0],
+        lastName: item[1],
+        employeeSkills: item[2].split(", "),
+        residence: item[3],
+      };
+      const docRef = doc(db, "employees", employeeData.firstName);
+      batchData.set(docRef, employeeData);
+      console.log(employeeData);
+    });
+    batchData.commit().then(() => {
+      alert("Data uploaded successfully");
+    });
   };
 
   return (
@@ -85,7 +109,7 @@ const CSV = () => {
         className="
               bg-lime-900 px-4 py-2 text-white rounded-md
               "
-        onClick={() => formatData(CSVData)}
+        onClick={() => uploadData(CSVData)}
       >
         Format Data
       </button>
