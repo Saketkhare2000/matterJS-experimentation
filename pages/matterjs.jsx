@@ -1,12 +1,12 @@
 import React, { useEffect, useLayoutEffect } from "react";
-import Matter from "matter-js";
+import Matter, { Body } from "matter-js";
 
 const MatterJS = () => {
   // module aliases
   const matterRef = React.useRef(null);
   useLayoutEffect(() => {
     const canvas = matterRef.current;
-    const thickness = 10;
+    const thickness = 200;
     let Engine = Matter.Engine,
       Render = Matter.Render,
       Runner = Matter.Runner,
@@ -18,7 +18,13 @@ const MatterJS = () => {
     console.log(Mouse);
     console.log(MouseConstraint.mouse);
     // // create an engine
-    let engine = Engine.create();
+    let engine = Engine.create({
+      render: {
+        options: {
+          pixelRatio: "1",
+        },
+      },
+    });
 
     // // create a renderer
     let render = Render.create({
@@ -30,11 +36,19 @@ const MatterJS = () => {
         height: window.innerHeight,
       },
     });
+    //add raycasting
+
+    Render.setPixelRatio(render, "auto");
 
     let pill = Bodies.rectangle(450, 0, 180, 56, {
       friction: 0.2,
       frictionAir: 0.00001,
       restitution: 0.8,
+
+      velocity: {
+        x: 0.5,
+        y: 0.5,
+      },
       bounds: {
         min: {
           x: 10,
@@ -124,6 +138,7 @@ const MatterJS = () => {
       friction: 0.2,
       frictionAir: 0.00001,
       restitution: 0.8,
+
       bounds: {
         min: {
           x: 1,
@@ -209,6 +224,37 @@ const MatterJS = () => {
       },
     });
 
+    //   const limitMaxSpeed = () => {
+    //     let maxSpeed = 1;
+    //     if (body.velocity.x > maxSpeed) {
+    //         Body.setVelocity(body, { x: maxSpeed, y: body.velocity.y });
+    //     }
+
+    //     if (body.velocity.x < -maxSpeed) {
+    //         Body.setVelocity(body, { x: -maxSpeed, y: body.velocity.y });
+    //     }
+
+    //     if (body.velocity.y > maxSpeed) {
+    //         Body.setVelocity(body, { x: body.velocity.x, y: maxSpeed });
+    //     }
+
+    //     if (body.velocity.y < -maxSpeed) {
+    //         Body.setVelocity(body, { x: -body.velocity.x, y: -maxSpeed });
+    //     }
+    // }
+    // Events.on(engine, 'beforeUpdate', limitMaxSpeed);
+
+    // const delta = 1000 / 60;
+    // const subSteps = 6;
+    // const subDelta = delta / subSteps;
+
+    // (function run() {
+    //   window.requestAnimationFrame(run);
+    //   for (let i = 0; i < subSteps; i += 1) {
+    //     Engine.update(engine, subDelta);
+    //   }
+    // })();
+
     let ground = Bodies.rectangle(
       window.innerWidth / 2,
       window.innerHeight,
@@ -247,18 +293,19 @@ const MatterJS = () => {
       // boxF,
       pill,
       pill1,
-      pill2,
-      pill3,
-      pill4,
-      pill5,
-      pill6,
-      pill7,
+      // pill2,
+      // pill3,
+      // pill4,
+      // pill5,
+      // pill6,
+      // pill7,
       ground,
       wallLeft,
       wallRight,
       roof,
     ]);
-
+    let ray = Matter.Ray;
+    console.log(ray);
     // run the renderer
     Render.run(render);
 
