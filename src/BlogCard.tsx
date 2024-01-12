@@ -46,7 +46,7 @@ const BlogCard = ({ post }: { post: any }) => {
     return (
         <Card className="max-w-xs cursor-pointer overflow-hidden border-neutral-500 bg-neutral-900 text-neutral-200">
             <Image
-                src={coverImage.url}
+                src={coverImage?.url}
                 alt="coverImage"
                 className="w-full object-cover"
                 width={150}
