@@ -7,7 +7,7 @@ export const getAllPosts = async () => {
     const data: any = await client.request(
         gql`
             query allPosts($tags: [ObjectId!]) {
-                publication(host: "saketdevs.hashnode.dev") {
+                publication(host: "saketcreatexp.hashnode.dev") {
                     title
                     posts(first: 20, filter: { tags: $tags }) {
                         pageInfo {
@@ -47,7 +47,7 @@ export const getPost = async (slug: any) => {
     const data: any = await client.request(
         gql`
             query postDetails($slug: String!) {
-                publication(host: "saketdevs.hashnode.dev") {
+                publication(host: "saketcreatexp.hashnode.dev") {
                     post(slug: $slug) {
                         author {
                             name
@@ -84,7 +84,7 @@ export const getSlug = async () => {
     const data: any = await client.request(
         gql`
             query allPosts {
-                publication(host: "saketdevs.hashnode.dev") {
+                publication(host: "saketcreatexp.hashnode.dev") {
                     posts(first: 20) {
                         edges {
                             node {
