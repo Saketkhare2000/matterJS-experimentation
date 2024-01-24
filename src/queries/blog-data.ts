@@ -1,13 +1,14 @@
 import { getClient } from "@/graphQLClient";
 import { gql } from "graphql-request";
 
+const url = "saketcreatexp.hashnode.dev";
 export const getAllPosts = async () => {
     const client = getClient();
 
     const data: any = await client.request(
         gql`
             query allPosts($tags: [ObjectId!]) {
-                publication(host: "saketcreatexp.hashnode.dev") {
+                publication(host: "${url}") {
                     title
                     posts(first: 20, filter: { tags: $tags }) {
                         pageInfo {
@@ -47,7 +48,7 @@ export const getPost = async (slug: any) => {
     const data: any = await client.request(
         gql`
             query postDetails($slug: String!) {
-                publication(host: "saketcreatexp.hashnode.dev") {
+                publication(host: "${url}") {
                     post(slug: $slug) {
                         author {
                             name
@@ -59,6 +60,8 @@ export const getPost = async (slug: any) => {
                         readTimeInMinutes
                         content {
                             html
+                            text
+                            markdown
                         }
                         tags {
                             name
@@ -84,7 +87,7 @@ export const getSlug = async () => {
     const data: any = await client.request(
         gql`
             query allPosts {
-                publication(host: "saketcreatexp.hashnode.dev") {
+                publication(host: "${url}") {
                     posts(first: 20) {
                         edges {
                             node {

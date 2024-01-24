@@ -8,26 +8,8 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { getAllPosts, getPost } from "./queries/blog-data";
 
-import BlogDetails from "./BlogDetails";
-import { Badge } from "@/components/ui/badge";
-
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { CopyIcon } from "@radix-ui/react-icons";
-import { DialogClose } from "@radix-ui/react-dialog";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useRouter } from "next/router";
 
 const BlogCard = ({ post }: { post: any }) => {
     const {
@@ -41,10 +23,18 @@ const BlogCard = ({ post }: { post: any }) => {
     } = post.node;
 
     const [open, setOpen] = React.useState(false);
+    console.log(slug);
     const [postData, setPostData] = React.useState({} as any);
 
+    const router = useRouter();
+
     return (
-        <Card className="max-w-xs cursor-pointer overflow-hidden border-neutral-500 bg-neutral-900 text-neutral-200">
+        <Card
+            onClick={() => {
+                router.push(`/blogPost/${slug}`);
+            }}
+            className="max-w-xs cursor-pointer overflow-hidden border-neutral-500 bg-neutral-900 text-neutral-200"
+        >
             <Image
                 src={coverImage?.url}
                 alt="coverImage"
@@ -64,7 +54,7 @@ const BlogCard = ({ post }: { post: any }) => {
                     {publishedAt} - {readTimeInMinutes} min read
                 </p>
 
-                <Dialog>
+                {/* <Dialog>
                     <DialogTrigger asChild>
                         <Button
                             variant="secondary"
@@ -103,7 +93,7 @@ const BlogCard = ({ post }: { post: any }) => {
                             </DialogClose>
                         </DialogFooter>
                     </DialogContent>
-                </Dialog>
+                </Dialog> */}
             </CardFooter>
         </Card>
     );
