@@ -14,7 +14,9 @@ export default function Home() {
             <h2 className="text-xl font-bold text-white">Checkout blogs</h2>
 
             <Button variant="outline" className="w-fit">
-                <Link href="/blog">Blog</Link>
+                <Link href="/blog" prefetch={false}>
+                    Blog
+                </Link>
             </Button>
         </main>
     );
