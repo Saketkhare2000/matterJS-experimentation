@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 code {
-    @apply dark:bg-gray-800 rounded px-1;
+    @apply dark:bg-gray-800 rounded px-1 text-neutral-100;
 }
 
 pre {
-    @apply bg-gray-800 dark:bg-gray-800 rounded p-4 overflow-x-scroll;
+    @apply bg-gray-800 dark:bg-gray-800 rounded p-4 overflow-x-scroll text-neutral-100;
 }
 
 blockquote {
-    @apply border-l-4 border-gray-200 dark:border-gray-800 pl-4;
+    @apply border-l-4 border-gray-200 dark:border-gray-800 pl-4 text-neutral-100;
 }
 
 .blog-content h1 {

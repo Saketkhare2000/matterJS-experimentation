@@ -1,7 +1,7 @@
 import { getClient } from "@/graphQLClient";
 import { gql } from "graphql-request";
 
-const url = "saketcreatexp.hashnode.dev";
+const url = "blog.createxp.in";
 export const getAllPosts = async () => {
     const client = getClient();
 

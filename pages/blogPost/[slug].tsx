@@ -11,11 +11,28 @@ interface BlogPageProps {
     data: any;
 }
 
+export const getServerSideProps = async (context: any) => {
+    context.res.setHeader(
+        "Cache-Control",
+        "public, s-maxage=10, stale-while-revalidate=59"
+    );
+
+    const { slug } = context.params;
+
+    let data;
+
+    await getPost(slug).then((res) => {
+        data = res;
+    });
+    return {
+        props: {
+            slug,
+            data,
+        },
+    };
+};
+
 const BlogPage = ({ slug, data }: BlogPageProps) => {
-    useEffect(() => {}, [slug]);
-
-    console.log(data);
-
     const html: string = data?.content.html;
 
     const paragraphsArray: string[] = html.split("\n");
@@ -86,20 +103,3 @@ const BlogPage = ({ slug, data }: BlogPageProps) => {
     );
 };
 export default BlogPage;
-
-export const getServerSideProps = async (context: any) => {
-    const { slug } = context.params;
-
-    let data;
-
-    await getPost(slug).then((res) => {
-        console.log(res);
-        data = res;
-    });
-    return {
-        props: {
-            slug,
-            data,
-        },
-    };
-};
